@@ -1,0 +1,93 @@
+{
+  "access": "PUBLIC",
+  "owner": "dev-team",
+  "uri": "uri:gh-integration-example:0.1",
+  "name": "Github Integration Example",
+  "labels": [
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "99_99",
+      "extractors": [
+        {
+          "name": "99_99",
+          "jsonpath": "$.latencies.99_99.value",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "RPS",
+      "extractors": [
+        {
+          "name": "rps",
+          "jsonpath": "$.latencies.rps.value",
+          "isarray": false
+        }
+      ],
+      "filtering": false,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "99_999",
+      "extractors": [
+        {
+          "name": "99_999",
+          "jsonpath": "$.latencies.99_999.value",
+          "isarray": false
+        }
+      ],
+      "filtering": false,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "99_9",
+      "extractors": [
+        {
+          "name": "99_9",
+          "jsonpath": "$.latencies.99_9.value",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "avg",
+      "extractors": [
+        {
+          "name": "avg",
+          "jsonpath": "$.latencies.avg.value",
+          "isarray": false
+        }
+      ],
+      "filtering": false,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "max",
+      "extractors": [
+        {
+          "name": "max",
+          "jsonpath": "$.latencies.max.value",
+          "isarray": false
+        }
+      ],
+      "filtering": false,
+      "metrics": true
+    }
+  ],
+  "transformers": []
+}
