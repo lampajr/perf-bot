@@ -7,20 +7,6 @@
     {
       "access": "PUBLIC",
       "owner": "dev-team",
-      "name": "99_99",
-      "extractors": [
-        {
-          "name": "99_99",
-          "jsonpath": "$.latencies.99_99.value",
-          "isarray": false
-        }
-      ],
-      "filtering": true,
-      "metrics": true
-    },
-    {
-      "access": "PUBLIC",
-      "owner": "dev-team",
       "name": "RPS",
       "extractors": [
         {
@@ -39,7 +25,7 @@
       "extractors": [
         {
           "name": "99_999",
-          "jsonpath": "$.latencies.99_999.value",
+          "jsonpath": "$.latencies.\"99_999\".value",
           "isarray": false
         }
       ],
@@ -49,11 +35,25 @@
     {
       "access": "PUBLIC",
       "owner": "dev-team",
+      "name": "99_99",
+      "extractors": [
+        {
+          "name": "99_99",
+          "jsonpath": "$.latencies.\"99_99\".value",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
       "name": "99_9",
       "extractors": [
         {
           "name": "99_9",
-          "jsonpath": "$.latencies.99_9.value",
+          "jsonpath": "$.latencies.\"99_9\".value",
           "isarray": false
         }
       ],

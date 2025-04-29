@@ -12,4 +12,8 @@ curl 'http://localhost:8080/api/schema/import/' -X POST -H 'content-type: applic
 echo "==== Creating tests ===="
 echo ""
 curl 'http://localhost:8080/api/test/import/' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/test.json
-curl 'http://localhost:8080/api/test/import/' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/test_prs.json
+
+echo "==== Uploading run ===="
+echo ""
+curl 'http://localhost:8080/api/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run.json
+curl 'http://localhost:8080/api/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_2.json
