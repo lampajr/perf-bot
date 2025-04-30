@@ -2,9 +2,12 @@
   "$schema": "uri:gh-integration-example:0.1",
   "info": {
     "repo": "https://github.com/lampajr/horreum-app-integration-example",
+    "source_branch": "dev",
+    "target_branch": "main",
+    "is_pull_request": true,
     "pull_request": "1",
-    "start": "2025-04-25T10:11:43+00:00",
-    "stop": "2025-04-25T10:12:43+00:00"
+    "start": "2025-04-29T10:14:43+00:00",
+    "stop": "2025-04-29T10:15:43+00:00"
   },
   "latencies": {
     "rps": {
@@ -12,23 +15,23 @@
       "unit": "reqs/sec"
     },
     "avg": {
-      "value": 300,
+      "value": 120,
       "unit": "ms"
     },
     "max": {
-      "value": 1500,
+      "value": 1000,
       "unit": "ms"
     },
     "99_999": {
-      "value": 1500,
+      "value": 1000,
       "unit": "ms"
     },
     "99_99": {
-      "value": 1200,
+      "value": 750,
       "unit": "ms"
     },
     "99_9": {
-      "value": 600,
+      "value": 200,
       "unit": "ms"
     }
   },

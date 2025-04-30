@@ -4,11 +4,171 @@
   "name": "GithubIntegrationExample",
   "description": "Example of Github repository integration - https://github.com/lampajr/horreum-app-integration-example",
   "datastoreId": null,
+  "timelineLabels": [],
   "fingerprintLabels": [],
   "transformers": [],
   "notificationsEnabled": true,
-  "variables": [],
+  "variables": [
+    {
+      "name": "99.999",
+      "order": 0,
+      "labels": [
+        "99_999"
+      ],
+      "changeDetection": [
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 2,
+            "threshold": 0.1,
+            "minPrevious": 2
+          }
+        },
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 1,
+            "threshold": 0.2,
+            "minPrevious": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "Avg",
+      "order": 1,
+      "labels": [
+        "avg"
+      ],
+      "changeDetection": [
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 1,
+            "threshold": 0.2,
+            "minPrevious": 2
+          }
+        },
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 2,
+            "threshold": 0.1,
+            "minPrevious": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "99.9",
+      "order": 2,
+      "labels": [
+        "99_9"
+      ],
+      "changeDetection": [
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 2,
+            "threshold": 0.1,
+            "minPrevious": 2
+          }
+        },
+        {
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 1,
+            "threshold": 0.2,
+            "minPrevious": 2
+          }
+        }
+      ]
+    }
+  ],
   "missingDataRules": [],
-  "experiments": [],
-  "actions": []
+  "experiments": [
+    {
+      "name": "PullRequestComparisonV1",
+      "selectorLabels": [
+        "is_pr"
+      ],
+      "selectorFilter": "isPr => isPr",
+      "baselineLabels": [
+        "is_pr"
+      ],
+      "baselineFilter": "isPr => !isPr",
+      "comparisons": [
+        {
+          "model": "relativeDifference",
+          "config": {
+            "threshold": 0.1,
+            "greaterBetter": false,
+            "maxBaselineDatasets": 0
+          },
+          "variableName": "99.999"
+        },
+        {
+          "model": "relativeDifference",
+          "config": {
+            "threshold": 0.1,
+            "greaterBetter": false,
+            "maxBaselineDatasets": 0
+          },
+          "variableId": 2,
+          "variableName": "Avg"
+        },
+        {
+          "model": "relativeDifference",
+          "config": {
+            "threshold": 0.1,
+            "greaterBetter": false,
+            "maxBaselineDatasets": 0
+          },
+          "variableId": 3,
+          "variableName": "99.9"
+        }
+      ]
+    },
+    {
+      "name": "PullRequestComparisonV2",
+      "selectorLabels": [
+        "source_branch"
+      ],
+      "selectorFilter": "sourceBranch => sourceBranch !== \"main\"",
+      "baselineLabels": [
+        "source_branch"
+      ],
+      "baselineFilter": "sourceBranch => sourceBranch === \"main\"",
+      "comparisons": [
+        {
+          "model": "relativeDifference",
+          "config": {
+            "threshold": 0.1,
+            "greaterBetter": false,
+            "maxBaselineDatasets": 0
+          },
+          "variableName": "Avg"
+        }
+      ]
+    }
+  ],
+  "actions": [],
+  "subscriptions": {
+    "id": 1,
+    "users": [],
+    "optout": [],
+    "teams": []
+  }
 }

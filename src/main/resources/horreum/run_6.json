@@ -5,9 +5,9 @@
     "source_branch": "dev",
     "target_branch": "main",
     "is_pull_request": true,
-    "pull_request": "1",
-    "start": "2025-04-26T10:14:43+00:00",
-    "stop": "2025-04-26T10:15:43+00:00"
+    "pull_request": "2",
+    "start": "2025-04-30T10:14:43+00:00",
+    "stop": "2025-04-30T10:15:43+00:00"
   },
   "latencies": {
     "rps": {
@@ -15,23 +15,23 @@
       "unit": "reqs/sec"
     },
     "avg": {
-      "value": 250,
+      "value": 115,
       "unit": "ms"
     },
     "max": {
-      "value": 1400,
+      "value": 990,
       "unit": "ms"
     },
     "99_999": {
-      "value": 1400,
+      "value": 990,
       "unit": "ms"
     },
     "99_99": {
-      "value": 1050,
+      "value": 650,
       "unit": "ms"
     },
     "99_9": {
-      "value": 450,
+      "value": 180,
       "unit": "ms"
     }
   },

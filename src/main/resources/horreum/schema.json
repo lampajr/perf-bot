@@ -43,7 +43,7 @@
           "isarray": false
         }
       ],
-      "filtering": true,
+      "filtering": false,
       "metrics": true
     },
     {
@@ -57,7 +57,7 @@
           "isarray": false
         }
       ],
-      "filtering": true,
+      "filtering": false,
       "metrics": true
     },
     {
@@ -87,6 +87,62 @@
       ],
       "filtering": false,
       "metrics": true
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "pr",
+      "extractors": [
+        {
+          "name": "pr",
+          "jsonpath": "$.info.pull_request",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": false
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "is_pr",
+      "extractors": [
+        {
+          "name": "is_pr",
+          "jsonpath": "$.info.is_pull_request",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": false
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "target_branch",
+      "extractors": [
+        {
+          "name": "target_branch",
+          "jsonpath": "$.info.target_branch",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": false
+    },
+    {
+      "access": "PUBLIC",
+      "owner": "dev-team",
+      "name": "source_branch",
+      "extractors": [
+        {
+          "name": "source_branch",
+          "jsonpath": "$.info.source_branch",
+          "isarray": false
+        }
+      ],
+      "filtering": true,
+      "metrics": false
     }
   ],
   "transformers": []
