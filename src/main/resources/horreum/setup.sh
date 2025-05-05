@@ -31,4 +31,4 @@ curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info
 curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_3.json
 curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_4.json
 curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_5.json
-curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_6.json
+#curl $API'/run/data?test=GithubIntegrationExample&start=$.info.start&stop=$.info.stop&owner=dev-team&access=PUBLIC' -X POST -H 'content-type: application/json' -H "X-Horreum-API-Key: $API_KEY" -d @"$CWD"/run_6.json

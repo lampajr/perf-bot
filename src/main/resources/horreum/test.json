@@ -164,7 +164,19 @@
       ]
     }
   ],
-  "actions": [],
+  "actions": [
+    {
+      "event": "run/new",
+      "type": "http",
+      "config": {
+        "type": "http",
+        "url": "http://localhost:8081/horreum"
+      },
+      "secrets": {},
+      "active": true,
+      "runAlways": false
+    }
+  ],
   "subscriptions": {
     "id": 1,
     "users": [],
