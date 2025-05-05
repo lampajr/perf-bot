@@ -1,4 +1,4 @@
-package io.lampajr;
+package io.lampajr.service;
 
 import io.hyperfoil.tools.HorreumClient;
 import io.hyperfoil.tools.horreum.api.data.ExportedLabelValues;

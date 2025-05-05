@@ -1,21 +1,19 @@
-package io.lampajr;
+package io.lampajr.service;
 
 import io.hyperfoil.tools.horreum.api.data.LabelValueMap;
 import io.hyperfoil.tools.horreum.api.services.ExperimentService;
 import io.lampajr.util.ExperimentResultConverter;
 import io.lampajr.util.LabelValueMapConverter;
-import io.quarkiverse.githubapp.event.IssueComment;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.kohsuke.github.GHEventPayload;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 @ApplicationScoped
-public class PullRequestCheck {
+public class PullRequestService {
 
     @ConfigProperty(name = "horreum.gh.app.prompt")
     String prompt;
@@ -29,7 +27,7 @@ public class PullRequestCheck {
     @Inject
     ExperimentResultConverter experimentResultConverter;
 
-    void onComment(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
+    public void onGithubComment(GHEventPayload.IssueComment issueComment) throws IOException {
         // TODO: implement more robust parsing logic
         String[] comment = issueComment.getComment().getBody().split(" ");
 
@@ -66,8 +64,9 @@ public class PullRequestCheck {
                     runId = comment[2];
                     List<ExperimentService.ExperimentResult> comparisonResults = horreumService.compare(repo, repoUrl,
                             Integer.parseInt(runId));
-                    commentResult = "## Comparison for " + runId + " against baseline" + "\n\n" + String.join("\n", comparisonResults.stream()
-                            .map(experimentResult -> experimentResultConverter.serialize(experimentResult)).toList());
+                    commentResult = "## Comparison for " + runId + " against baseline" + "\n\n" + String.join("\n",
+                            comparisonResults.stream()
+                                    .map(experimentResult -> experimentResultConverter.serialize(experimentResult)).toList());
                     break;
                 default:
                     issueComment.getIssue().comment("Unexpected command: " + cmd);
