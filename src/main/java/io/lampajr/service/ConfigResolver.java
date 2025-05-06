@@ -15,11 +15,11 @@ import java.util.Map;
 
 @ApplicationScoped
 @Startup
-public class ConfigService {
+public class ConfigResolver {
 
     final Map<String, ProjectConfig> configs;
 
-    public ConfigService() {
+    public ConfigResolver() {
         configs = new HashMap<>();
 
         try {

@@ -13,6 +13,7 @@ import org.kohsuke.github.GHEventPayload;
 import org.kohsuke.github.GHRepository;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @ApplicationScoped
@@ -23,6 +24,9 @@ public class PullRequestService {
 
     @Inject
     HorreumService horreumService;
+
+    @Inject
+    JenkinsService jenkinsService;
 
     @Inject
     LabelValueMapConverter labelValueMapConverter;
@@ -61,6 +65,13 @@ public class PullRequestService {
                     if (comment.length < 3) {
                         throw new IllegalArgumentException("Expecting at least 3 arguments, e.g., /horreum trash <run-id>");
                     }
+                    break;
+                case "run":
+                    if (comment.length < 3) {
+                        throw new IllegalArgumentException("Expecting at least 3 arguments, e.g., /horreum run <job-id>");
+                    }
+                    // TODO: extract params from the comment
+                    jenkinsService.buildJob(repoFullName, comment[2], new HashMap<>());
                     break;
                 case "compare":
                     if (comment.length < 3) {
