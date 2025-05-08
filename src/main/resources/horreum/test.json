@@ -1,7 +1,8 @@
 {
   "access": "PUBLIC",
   "owner": "dev-team",
-  "name": "GithubIntegrationExample",
+  "id": 10,
+  "name": "HorreumAppIntegrationExample",
   "description": "Example of Github repository integration - https://github.com/lampajr/horreum-app-integration-example",
   "datastoreId": null,
   "timelineLabels": [],
@@ -10,6 +11,8 @@
   "notificationsEnabled": true,
   "variables": [
     {
+      "id": 1,
+      "testId": 10,
       "name": "99.999",
       "order": 0,
       "labels": [
@@ -17,16 +20,7 @@
       ],
       "changeDetection": [
         {
-          "model": "relativeDifference",
-          "config": {
-            "model": "relativeDifference",
-            "filter": "mean",
-            "window": 2,
-            "threshold": 0.1,
-            "minPrevious": 2
-          }
-        },
-        {
+          "id": 2,
           "model": "relativeDifference",
           "config": {
             "model": "relativeDifference",
@@ -35,10 +29,23 @@
             "threshold": 0.2,
             "minPrevious": 2
           }
+        },
+        {
+          "id": 1,
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 2,
+            "threshold": 0.1,
+            "minPrevious": 2
+          }
         }
       ]
     },
     {
+      "id": 2,
+      "testId": 10,
       "name": "Avg",
       "order": 1,
       "labels": [
@@ -46,16 +53,7 @@
       ],
       "changeDetection": [
         {
-          "model": "relativeDifference",
-          "config": {
-            "model": "relativeDifference",
-            "filter": "mean",
-            "window": 1,
-            "threshold": 0.2,
-            "minPrevious": 2
-          }
-        },
-        {
+          "id": 3,
           "model": "relativeDifference",
           "config": {
             "model": "relativeDifference",
@@ -64,10 +62,23 @@
             "threshold": 0.1,
             "minPrevious": 2
           }
+        },
+        {
+          "id": 4,
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 1,
+            "threshold": 0.2,
+            "minPrevious": 2
+          }
         }
       ]
     },
     {
+      "id": 3,
+      "testId": 10,
       "name": "99.9",
       "order": 2,
       "labels": [
@@ -75,22 +86,24 @@
       ],
       "changeDetection": [
         {
-          "model": "relativeDifference",
-          "config": {
-            "model": "relativeDifference",
-            "filter": "mean",
-            "window": 2,
-            "threshold": 0.1,
-            "minPrevious": 2
-          }
-        },
-        {
+          "id": 5,
           "model": "relativeDifference",
           "config": {
             "model": "relativeDifference",
             "filter": "mean",
             "window": 1,
             "threshold": 0.2,
+            "minPrevious": 2
+          }
+        },
+        {
+          "id": 6,
+          "model": "relativeDifference",
+          "config": {
+            "model": "relativeDifference",
+            "filter": "mean",
+            "window": 2,
+            "threshold": 0.1,
             "minPrevious": 2
           }
         }
@@ -100,7 +113,9 @@
   "missingDataRules": [],
   "experiments": [
     {
+      "id": 1,
       "name": "PullRequestComparisonV1",
+      "testId": 10,
       "selectorLabels": [
         "is_pr"
       ],
@@ -117,6 +132,7 @@
             "greaterBetter": false,
             "maxBaselineDatasets": 0
           },
+          "variableId": 1,
           "variableName": "99.999"
         },
         {
@@ -142,7 +158,9 @@
       ]
     },
     {
+      "id": 2,
       "name": "PullRequestComparisonV2",
+      "testId": 10,
       "selectorLabels": [
         "source_branch"
       ],
@@ -159,6 +177,7 @@
             "greaterBetter": false,
             "maxBaselineDatasets": 0
           },
+          "variableId": 2,
           "variableName": "Avg"
         }
       ]
@@ -166,6 +185,7 @@
   ],
   "actions": [
     {
+      "id": 1,
       "event": "run/new",
       "type": "http",
       "config": {
@@ -173,6 +193,7 @@
         "url": "http://localhost:8081/horreum"
       },
       "secrets": {},
+      "testId": 10,
       "active": true,
       "runAlways": false
     }
@@ -181,6 +202,7 @@
     "id": 1,
     "users": [],
     "optout": [],
-    "teams": []
+    "teams": [],
+    "testId": 10
   }
 }

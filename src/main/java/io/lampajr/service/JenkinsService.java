@@ -21,7 +21,7 @@ public class JenkinsService {
     JenkinsServer jenkinsServer;
 
     public void buildJob(String repoFullName, String jobId, Map<String, String> params) {
-        // TODO: implement
+        Log.info("Building job " + jobId + " for " + repoFullName);
         ProjectConfig config = configResolver.getConfig(repoFullName);
         JobDef jobDef = config.jobs.get(jobId);
 

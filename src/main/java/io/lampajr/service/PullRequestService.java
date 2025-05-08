@@ -93,6 +93,7 @@ public class PullRequestService {
                 issueComment.getIssue().comment(commentResult);
             }
         } catch (Exception e) {
+            Log.error("Something went wrong", e);
             issueComment.getIssue().comment("Something went wrong processing cmd " + cmd + ": " + e.getMessage());
         }
     }

@@ -9,6 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +23,10 @@ public class ConfigResolver {
     public ConfigResolver() {
         configs = new HashMap<>();
 
-        try {
-            List<String> resourceFiles = ResourceReader.getResourceFiles("config");
-            for (String file : resourceFiles) {
-                Yaml yaml = new Yaml();
-                InputStream inputStream = ResourceReader.getResourceAsStream("config/".concat(file));
-
-                ProjectConfig config = yaml.loadAs(inputStream, ProjectConfig.class);
-
-                configs.put(config.id, config);
-            }
-        } catch (IOException e) {
-            Log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        Yaml yaml = new Yaml();
+        InputStream inputStream = ResourceReader.getResourceAsStream("config/repo-config.yaml");
+        ProjectConfig config = yaml.loadAs(inputStream, ProjectConfig.class);
+        configs.put(config.id, config);
     }
 
     public Map<String, ProjectConfig> getConfigs() {
