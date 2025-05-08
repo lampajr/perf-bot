@@ -2,11 +2,8 @@ id: lampajr/horreum-app-integration-example
 repository: https://github.com/lampajr/horreum-app-integration-example
 description: First example showing Github - Horreum integration
 horreumTestId: 10
-horreumKey: HUSR_0D2BA3F4_DA05_4775_BD51_59ACF857CAA0
+horreumKey: CHANGE_ME
 jobs:
-  healthcheck:
-    name: horreum-healthcheck
-    jenkinsJob: "Utility Scripts/Horreum-Healthcheck-Status"
-  local:
+  test:
     name: test
-    jenkinsJob: "HorreumAppIntegrationExample"
+    jenkinsJob: "AppIntegrationExample"

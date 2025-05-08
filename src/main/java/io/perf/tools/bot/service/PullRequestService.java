@@ -1,9 +1,7 @@
-package io.lampajr.service;
+package io.perf.tools.bot.service;
 
-import io.hyperfoil.tools.horreum.api.data.LabelValueMap;
-import io.hyperfoil.tools.horreum.api.services.ExperimentService;
-import io.lampajr.util.ExperimentResultConverter;
-import io.lampajr.util.LabelValueMapConverter;
+import io.perf.tools.bot.service.datastore.ResultStore;
+import io.perf.tools.bot.service.job.JobRunner;
 import io.quarkiverse.githubapp.runtime.github.PayloadHelper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -14,25 +12,18 @@ import org.kohsuke.github.GHRepository;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 @ApplicationScoped
 public class PullRequestService {
 
-    @ConfigProperty(name = "horreum.gh.app.prompt")
+    @ConfigProperty(name = "perf.bot.prompt")
     String prompt;
 
     @Inject
-    HorreumService horreumService;
+    ResultStore resultStore;
 
     @Inject
-    JenkinsService jenkinsService;
-
-    @Inject
-    LabelValueMapConverter labelValueMapConverter;
-
-    @Inject
-    ExperimentResultConverter experimentResultConverter;
+    JobRunner jobRunner;
 
     public void onGithubComment(GHEventPayload.IssueComment issueComment) throws IOException {
         // TODO: implement more robust parsing logic
@@ -56,9 +47,8 @@ public class PullRequestService {
                         throw new IllegalArgumentException("Expecting at least 3 arguments, e.g., /horreum get <run-id>");
                     }
                     runId = comment[2];
-                    LabelValueMap labelValues = horreumService.getRun(repoFullName, repoUrl, Integer.parseInt(runId));
-                    commentResult = "## Label values for run " + runId + "\n\n" + labelValueMapConverter.serialize(
-                            labelValues);
+                    commentResult = "## Label values for run " + runId + "\n\n" + resultStore.getRun(repoFullName, repoUrl,
+                            Integer.parseInt(runId));
                     break;
                 case "trash":
                     Log.error("Command not yet implemented");
@@ -71,18 +61,15 @@ public class PullRequestService {
                         throw new IllegalArgumentException("Expecting at least 3 arguments, e.g., /horreum run <job-id>");
                     }
                     // TODO: extract params from the comment
-                    jenkinsService.buildJob(repoFullName, comment[2], new HashMap<>());
+                    jobRunner.buildJob(repoFullName, comment[2], new HashMap<>());
                     break;
                 case "compare":
                     if (comment.length < 3) {
                         throw new IllegalArgumentException("Expecting at least 3 arguments, e.g., /horreum compare <run-id>");
                     }
                     runId = comment[2];
-                    List<ExperimentService.ExperimentResult> comparisonResults = horreumService.compare(repoFullName, repoUrl,
-                            Integer.parseInt(runId));
-                    commentResult = "## Comparison for " + runId + " against baseline" + "\n\n" + String.join("\n",
-                            comparisonResults.stream()
-                                    .map(experimentResult -> experimentResultConverter.serialize(experimentResult)).toList());
+                    commentResult = "## Comparison for " + runId + " against baseline" + "\n\n" + resultStore.compare(
+                            repoFullName, repoUrl, Integer.parseInt(runId));
                     break;
                 default:
                     issueComment.getIssue().comment("Unexpected command: " + cmd);

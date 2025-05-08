@@ -1,4 +1,4 @@
-package io.lampajr.util;
+package io.perf.tools.bot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

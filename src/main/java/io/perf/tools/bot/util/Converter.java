@@ -1,4 +1,4 @@
-package io.lampajr.util;
+package io.perf.tools.bot.util;
 
 /**
  * Serialize object to String properly formatted to be

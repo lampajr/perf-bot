@@ -1,4 +1,4 @@
-package io.lampajr.model;
+package io.perf.tools.bot.model;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package io.lampajr.handler.rest;
+package io.perf.tools.bot.handler.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.lampajr.service.PullRequestService;
+import io.perf.tools.bot.service.PullRequestService;
 import io.quarkiverse.githubapp.runtime.github.GitHubService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
@@ -20,7 +20,7 @@ import java.io.StringReader;
 @Path("/github")
 public class GithubWebhookResource {
 
-    @ConfigProperty(name = "horreum.gh.app.installation.id")
+    @ConfigProperty(name = "perf.bot.installation.id")
     Long installationId;
 
     @Inject

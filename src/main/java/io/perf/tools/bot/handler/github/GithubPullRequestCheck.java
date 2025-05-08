@@ -1,6 +1,6 @@
-package io.lampajr.handler.github;
+package io.perf.tools.bot.handler.github;
 
-import io.lampajr.service.PullRequestService;
+import io.perf.tools.bot.service.PullRequestService;
 import io.quarkiverse.githubapp.event.IssueComment;
 import jakarta.inject.Inject;
 import org.kohsuke.github.GHEventPayload;

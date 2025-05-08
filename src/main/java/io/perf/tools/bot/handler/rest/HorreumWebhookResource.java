@@ -1,11 +1,9 @@
-package io.lampajr.handler.rest;
+package io.perf.tools.bot.handler.rest;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.hyperfoil.tools.horreum.api.data.LabelValueMap;
-import io.hyperfoil.tools.horreum.api.services.ExperimentService;
-import io.lampajr.service.HorreumService;
-import io.lampajr.util.ExperimentResultConverter;
-import io.lampajr.util.LabelValueMapConverter;
+import io.perf.tools.bot.service.datastore.horreum.HorreumService;
+import io.perf.tools.bot.service.datastore.horreum.util.ExperimentResultConverter;
+import io.perf.tools.bot.service.datastore.horreum.util.LabelValueMapConverter;
 import io.quarkiverse.githubapp.runtime.github.GitHubService;
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
@@ -18,12 +16,11 @@ import org.jboss.resteasy.reactive.ResponseStatus;
 import org.kohsuke.github.GHIssue;
 
 import java.io.IOException;
-import java.util.List;
 
 @Path("/horreum")
 public class HorreumWebhookResource {
 
-    @ConfigProperty(name = "horreum.gh.app.installation.id")
+    @ConfigProperty(name = "perf.bot.installation.id")
     Long installationId;
 
     @Inject
@@ -57,15 +54,11 @@ public class HorreumWebhookResource {
 
             comment.append("## Job results ").append(runId).append("\n");
 
-            LabelValueMap labelValueMap = horreumService.getRun(repoFullName, repoUrl, runId);
             comment.append("### Label values").append("\n\n")
-                    .append(labelValueMapConverter.serialize(labelValueMap)).append("\n\n");
-
-            List<ExperimentService.ExperimentResult> comparisonResults = horreumService.compare(repoFullName, repoUrl, runId);
+                    .append(horreumService.getRun(repoFullName, repoUrl, runId)).append("\n\n");
 
             comment.append("### Baseline comparison").append("\n\n")
-                    .append(String.join("\n", comparisonResults.stream()
-                            .map(experimentResult -> experimentResultConverter.serialize(experimentResult)).toList()));
+                    .append(horreumService.compare(repoFullName, repoUrl, runId));
 
             issue.comment(comment.toString());
         } catch (IOException e) {

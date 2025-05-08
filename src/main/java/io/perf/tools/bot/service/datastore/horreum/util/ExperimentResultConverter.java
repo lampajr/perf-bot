@@ -1,6 +1,7 @@
-package io.lampajr.util;
+package io.perf.tools.bot.service.datastore.horreum.util;
 
 import io.hyperfoil.tools.horreum.api.services.ExperimentService;
+import io.perf.tools.bot.util.Converter;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

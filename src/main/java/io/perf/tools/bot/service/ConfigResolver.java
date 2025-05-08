@@ -1,17 +1,13 @@
-package io.lampajr.service;
+package io.perf.tools.bot.service;
 
-import io.lampajr.model.ProjectConfig;
-import io.lampajr.util.ResourceReader;
-import io.quarkus.logging.Log;
+import io.perf.tools.bot.model.ProjectConfig;
+import io.perf.tools.bot.util.ResourceReader;
 import io.quarkus.runtime.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped

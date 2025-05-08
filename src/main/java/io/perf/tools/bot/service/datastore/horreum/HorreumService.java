@@ -1,11 +1,15 @@
-package io.lampajr.service;
+package io.perf.tools.bot.service.datastore.horreum;
 
 import io.hyperfoil.tools.HorreumClient;
 import io.hyperfoil.tools.horreum.api.data.ExportedLabelValues;
 import io.hyperfoil.tools.horreum.api.data.LabelValueMap;
 import io.hyperfoil.tools.horreum.api.services.ExperimentService;
 import io.hyperfoil.tools.horreum.api.services.RunService;
-import io.lampajr.model.ProjectConfig;
+import io.perf.tools.bot.model.ProjectConfig;
+import io.perf.tools.bot.service.ConfigResolver;
+import io.perf.tools.bot.service.datastore.ResultStore;
+import io.perf.tools.bot.service.datastore.horreum.util.ExperimentResultConverter;
+import io.perf.tools.bot.service.datastore.horreum.util.LabelValueMapConverter;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -13,16 +17,22 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.List;
 
 @ApplicationScoped
-public class HorreumService {
+public class HorreumService implements ResultStore {
 
-    @ConfigProperty(name = "horreum.gh.app.horreum.url")
+    @ConfigProperty(name = "proxy.datastore.horreum.url")
     String horreumUrl;
 
     @Inject
     ConfigResolver configResolver;
 
-    // TODO: get the run or the label values?
-    public LabelValueMap getRun(String repo, String repositoryUrl, int horreumRunId) {
+    @Inject
+    LabelValueMapConverter labelValueMapConverter;
+
+    @Inject
+    ExperimentResultConverter experimentResultConverter;
+
+    @Override
+    public String getRun(String repo, String repositoryUrl, int horreumRunId) {
         check(repo, repositoryUrl);
 
         ProjectConfig config = configResolver.getConfig(repo);
@@ -31,7 +41,8 @@ public class HorreumService {
             List<ExportedLabelValues> labelValues = client.runService.getRunLabelValues(horreumRunId, null, null, null, 1000, 0,
                     null, null, false);
             // assuming we have one single dataset
-            return labelValues.getFirst().values;
+            LabelValueMap labelValueMap = labelValues.getFirst().values;
+            return labelValueMapConverter.serialize(labelValueMap);
         }
     }
 
@@ -39,19 +50,24 @@ public class HorreumService {
      * Compare the provided run against the baseline configured in Horreum
      * @param horreumRunId id of the run in Horreum
      */
-    public List<ExperimentService.ExperimentResult> compare(String repo, String repositoryUrl, int horreumRunId) {
+    @Override
+    public String compare(String repo, String repositoryUrl, int horreumRunId) {
         check(repo, repositoryUrl);
         ProjectConfig config = configResolver.getConfig(repo);
         try (HorreumClient client = new HorreumClient.Builder().horreumUrl(horreumUrl).horreumApiKey(config.horreumKey)
                 .build()) {
             RunService.RunExtended run = client.runService.getRun(horreumRunId);
             // assumption that there is only one dataset
-            return client.experimentService.runExperiments(run.datasets[0]);
+            List<ExperimentService.ExperimentResult> comparisonResults = client.experimentService.runExperiments(
+                    run.datasets[0]);
+            return String.join("\n", comparisonResults.stream()
+                    .map(experimentResult -> experimentResultConverter.serialize(experimentResult)).toList());
         }
     }
 
     private void check(String repo, String repositoryUrl) {
-        if (!configResolver.getConfigs().containsKey(repo) || !configResolver.getConfig(repo).repository.equals(repositoryUrl)) {
+        if (!configResolver.getConfigs().containsKey(repo) || !configResolver.getConfig(repo).repository.equals(
+                repositoryUrl)) {
             throw new RuntimeException("Trying to get data for test " + repo + " from " + repositoryUrl);
         }
     }

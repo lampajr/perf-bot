@@ -1,10 +1,12 @@
-package io.lampajr.service;
+package io.perf.tools.bot.service.job.jenkins;
 
 import com.offbytwo.jenkins.JenkinsServer;
 import com.offbytwo.jenkins.model.JobWithDetails;
 import com.offbytwo.jenkins.model.QueueReference;
-import io.lampajr.model.JobDef;
-import io.lampajr.model.ProjectConfig;
+import io.perf.tools.bot.model.JobDef;
+import io.perf.tools.bot.model.ProjectConfig;
+import io.perf.tools.bot.service.ConfigResolver;
+import io.perf.tools.bot.service.job.JobRunner;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -12,7 +14,7 @@ import jakarta.inject.Inject;
 import java.util.Map;
 
 @ApplicationScoped
-public class JenkinsService {
+public class JenkinsService implements JobRunner {
 
     @Inject
     ConfigResolver configResolver;
@@ -20,6 +22,7 @@ public class JenkinsService {
     @Inject
     JenkinsServer jenkinsServer;
 
+    @Override
     public void buildJob(String repoFullName, String jobId, Map<String, String> params) {
         Log.info("Building job " + jobId + " for " + repoFullName);
         ProjectConfig config = configResolver.getConfig(repoFullName);

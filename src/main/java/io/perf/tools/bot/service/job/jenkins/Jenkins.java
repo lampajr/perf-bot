@@ -1,4 +1,4 @@
-package io.lampajr.proxy;
+package io.perf.tools.bot.service.job.jenkins;
 
 import com.offbytwo.jenkins.JenkinsServer;
 import com.offbytwo.jenkins.client.JenkinsHttpClient;
@@ -24,19 +24,19 @@ import java.security.cert.CertificateException;
 @Startup
 public class Jenkins {
 
-    @ConfigProperty(name = "proxy.jenkins.url")
+    @ConfigProperty(name = "proxy.job.runner.jenkins.url")
     String url;
 
-    @ConfigProperty(name = "proxy.jenkins.user")
+    @ConfigProperty(name = "proxy.job.runner.jenkins.user")
     String user;
 
-    @ConfigProperty(name = "proxy.jenkins.apiKey")
+    @ConfigProperty(name = "proxy.job.runner.jenkins.apiKey")
     String apiKey;
 
-    @ConfigProperty(name = "proxy.jenkins.truststore.file")
+    @ConfigProperty(name = "proxy.job.runner.jenkins.truststore.file")
     String truststore;
 
-    @ConfigProperty(name = "proxy.jenkins.truststore.pwd")
+    @ConfigProperty(name = "proxy.job.runner.jenkins.truststore.pwd")
     String truststorePwd;
 
     @Produces
