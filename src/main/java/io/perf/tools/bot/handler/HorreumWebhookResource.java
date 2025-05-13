@@ -43,7 +43,7 @@ public class HorreumWebhookResource {
     public void webhook(ObjectNode payload) {
         // when a new run is uploaded to Horreum we will check whether we have an existing "start benchmark" event in the queue
         // if so, we will get it and send back the results to the original pull request
-        Log.info("Received webhook: " + payload.toString());
+        Log.debug("Received webhook: " + payload.toString());
 
         // use this to check whether we have a configuration for that test id, and retrieve the repo full name
         String horreumTestId = payload.get("testid").asText();
@@ -65,11 +65,6 @@ public class HorreumWebhookResource {
             Log.error("Configured repository "  + repoFullName + " does not match Run repo full name: " + runRepoFullName);
             throw new IllegalArgumentException("Configured repo full name does not match uploaded Run repo full name");
         }
-
-        // check the two repo full names match each other
-        // if PR number is null, skip this as it means it is not a pull request that triggered the upload
-
-        // TODO: define two new labels: repo full name and pull request number
 
         StringBuilder comment = new StringBuilder();
         try {
