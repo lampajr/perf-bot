@@ -18,6 +18,8 @@ import java.io.IOException;
 @ApplicationScoped
 public class PullRequestService {
 
+    public static final String ISSUE_COMMENT_CREATE_ACTION = "created";
+
     @Inject
     ActionResolver actionResolver;
 
@@ -33,7 +35,8 @@ public class PullRequestService {
     public void onGithubComment(GHEventPayload.IssueComment issueComment) throws IOException {
         Action action = actionResolver.getActionFromComment(issueComment.getComment().getBody());
         ProjectConfig config = configService.getConfig(PayloadHelper.getRepository(issueComment).getFullName());
-        if (action != null) {
+        // skip any issue comment action that is not "created", e.g., ignore comment deletion
+        if (action != null && ISSUE_COMMENT_CREATE_ACTION.equalsIgnoreCase(issueComment.getAction())) {
             ActionContext ctx = new ActionContext(issueComment, config)
                     .process(validateAction)
                     .process(action)
