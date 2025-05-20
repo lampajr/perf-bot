@@ -37,6 +37,15 @@ public class Run extends BaseAction {
         Map<String, String> params = new HashMap<>();
         Matcher matcher = pattern.matcher(context.getPayload().getComment().getBody());
 
+        if (job.pullRequestNumberParam != null && !job.pullRequestNumberParam.isBlank()) {
+            params.put(job.pullRequestNumberParam, Integer.toString(context.getIssue().getNumber()));
+        }
+
+        if (job.repoCommitParam != null && !job.repoCommitParam.isBlank()) {
+            // TODO: find a way to fetch current commit of the PR
+            params.put(job.repoCommitParam, "");
+        }
+
         while (matcher.find()) {
             String key = matcher.group(1);
             String rawValue = matcher.group(2);

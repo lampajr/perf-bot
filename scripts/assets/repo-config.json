@@ -18,7 +18,9 @@
           "name": "PULL_REQUEST_NUMBER",
           "defaultValue": "1"
         }
-      }
+      },
+      "pullRequestNumberParam": "PULL_REQUEST_NUMBER",
+      "repoCommitParam": "APP_COMMIT"
     }
   }
 }
