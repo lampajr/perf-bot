@@ -29,6 +29,11 @@ public class Validate extends BaseAction {
             return;
         }
 
+        if (!context.getIssue().isPullRequest()) {
+            context.setCurrentResult(ActionResult.failure("Sorry! I can only run performance tests on PRs", getName()));
+            return;
+        }
+
         String login = context.getIssue().getUser().getLogin();
         if (context.getProjectConfig().authorizedUsers.contains(login)) {
             context.setCurrentResult(ActionResult.success("User " + login + " authorized", getName()));
