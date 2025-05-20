@@ -8,5 +8,8 @@ public class JobDef {
     public String user;
     public String jenkinsJob;
 
+    public String pullRequestNumberParam;
+    public String repoCommitParam;
+
     public Map<String, Param> configurableParams;
 }
